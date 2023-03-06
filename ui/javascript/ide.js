@@ -7,7 +7,7 @@ window.onload = function () {
 }
 
 function changeLanguage() {
-  let language = $("languages").val();
+  let language = $("#languages").val();
 
   if (language == 'C' || language == 'cpp') editor.setMode("ace/mode/c_cpp");
   else if (language == 'php') editor.session.setMode("ace/mode/php");
@@ -16,16 +16,20 @@ function changeLanguage() {
 }
 
 function executeCode() {
-  $.ajax({
-    url: "/ide/app/compiler.php",
-    method: "POST",
-    data: {
-      language: $("#languages").val(),
-      code: editor.getSession().getValue()
-    },
 
-    success: function (response) {
-      $(".output").text(response)
-    }
-  })
+    $.ajax({
+
+        url: "/ide/app/compiler.php",
+
+        method: "POST",
+
+        data: {
+            language: $("#languages").val(),
+            code: editor.getSession().getValue()
+        },
+
+        success: function(response) {
+            $(".output").text(response)
+        }
+    })
 }
